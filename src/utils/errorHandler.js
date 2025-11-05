@@ -3,7 +3,6 @@ const { StatusCodes }=require('http-status-codes');
 function errorHandler(err, req, res, next){
     if(err instanceof BaseError){
         return res.status(err.statusCode).json({
-            // Errname: err.name,
             success: false,
             message: err.message,
             error: err.details,
@@ -12,7 +11,6 @@ function errorHandler(err, req, res, next){
     }
 
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-            // Errname: err.name,
             success: false,
             message: 'Something went wrong',
             error: err,
