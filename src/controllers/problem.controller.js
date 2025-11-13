@@ -20,7 +20,7 @@ async function addProblem(req, res, next){
             message:'Successfully created a new problem.',
             error:{},
             data: newproblem
-        })
+        });
     }
     catch(error){
         next(error);
@@ -32,22 +32,36 @@ async function addProblem(req, res, next){
 
 }
 
-function getProblem(req, res){
-    // return res.status(501).json({
-    //     message: "Not Implemented."
-    // });
-    return res.status(StatusCodes.NOT_IMPLEMENTED).json({
-        message: "Not Implemented."
-    });
+async function getProblem(req, res){
+    try{
+        console.log("id: ", req.params.id);
+        const problem=await problemService.getProblem(req.params.id);
+        return res.status(StatusCodes.OK).json({
+            success: true,
+            error: {},
+            message: 'Successfully fetches the problem by their id.',
+            data: problem
+        });
+    }
+    catch(error){
+        console.log(error);
+        throw error;
+    }
 }
 
-function getProblems(req, res){
-    // return res.status(501).json({
-    //     message: "Not Implemented."
-    // });
-    return res.status(StatusCodes.NOT_IMPLEMENTED).json({
-        message: "Not Implemented."
-    });
+async function getProblems(req, res){
+    try{
+        const response=await problemService.getAllProblems();
+        return res.status(StatusCodes.OK).json({
+            success: true,
+            message:'Successfully fetched all the problems.',
+            error:{},
+            data: response
+        });
+    }
+    catch(error){
+        next(error);
+    }
 }
 
 function deleteProblem(req, res){

@@ -1,3 +1,4 @@
+const NotFound = require('../errors/notfound.error');
 const { Problem }=require('../models');
 
 class ProblemRepository{
@@ -16,6 +17,35 @@ class ProblemRepository{
             throw error;
         }
     }   
+
+    async getAllProblems(){
+        try{
+            throw {"err": "Some error"};
+            const problems=await Problem.find({});
+            return problems;
+        }
+        catch(error){
+            console.log(error);
+            throw error;
+        }
+    }
+
+    async getproblem(id){
+        try{
+            const problem=await Problem.findById(id);
+            console.log("Printing the result of findbyID", problem);
+            console.log(!problem);
+            if (!problem){
+                console.log("Successfully coming inside if condition.");
+                throw new NotFound("Problem", id);
+            }
+            return problem;
+        }
+        catch(error){
+            console.log(error);
+            throw error;
+        }
+    }
 }
 
 module.exports=ProblemRepository;
