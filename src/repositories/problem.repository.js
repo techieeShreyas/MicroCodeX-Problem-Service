@@ -34,7 +34,6 @@ class ProblemRepository{
         try{
             const problem=await Problem.findById(id);
             console.log("Printing the result of findbyID", problem);
-            console.log(!problem);
             if (!problem){
                 console.log("Successfully coming inside if condition.");
                 throw new NotFound("Problem", id);
